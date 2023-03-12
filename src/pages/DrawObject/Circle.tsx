@@ -1,16 +1,24 @@
-import { MovableComponent } from '../component/MovableComponent';
+import { CircleDraw } from '../component/CircleDraw';
 import { DrawObject } from './DrawObject';
 
 export class Circle extends DrawObject {
   constructor() {
     super();
-    this.addComponent(new MovableComponent());
+    this.addComponent(CircleDraw);
   }
-  public radius: number = 0;
+  public set radius(r: number) {
+    const circleDraw = this.getComponent(CircleDraw);
+    if (circleDraw) {
+      circleDraw.radius = r;
+    }
+  }
+  public get radius() {
+    const circleDraw = this.getComponent(CircleDraw);
+    return circleDraw?.radius || 0;
+  }
   public drawTo(context: CanvasRenderingContext2D): void {
-    context.strokeStyle = 'green';
-    context.beginPath();
-    context.arc(this.x, this.y, this.radius, 0, 2 * Math.PI);
-    context.stroke();
+    this.getComponents().forEach((component) => {
+      component.onUpdate?.(context);
+    });
   }
 }
