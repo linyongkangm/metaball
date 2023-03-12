@@ -38,7 +38,7 @@ export default function HomePage() {
       circle.radius = randomInt(minR, maxR);
       return circle;
     });
-    const rectSize = 50;
+    const rectSize = 10;
     const columnsNum = canvas.width / rectSize + 1;
     const rects = Array.from({
       length: (canvas.width / rectSize + 1) * (canvas.height / rectSize + 1),
@@ -55,8 +55,8 @@ export default function HomePage() {
     requestAnimationFrameDraw(() => {
       drawBackground(context);
       rects.forEach((rect) => {
-        rect.drawTo(context);
         rect.getComponent(Metaball)?.coverage(circles);
+        rect.drawTo(context);
       });
       circles.forEach((circle) => {
         circle.drawTo(context);
