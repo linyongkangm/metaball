@@ -1,4 +1,5 @@
 import { useEffect, useRef } from 'react';
+import { Metaball } from './component/Metaball';
 import { Circle } from './drawObject/Circle';
 import { Rect } from './drawObject/Rect';
 import { randomInt } from './randomPlus';
@@ -28,7 +29,7 @@ export default function HomePage() {
     if (!context) {
       return;
     }
-    const circles = Array.from({ length: randomInt(5, 10) }).map(() => {
+    const circles = Array.from({ length: randomInt(2, 2) }).map(() => {
       const minR = 30;
       const maxR = 80;
       const circle = new Circle();
@@ -38,14 +39,14 @@ export default function HomePage() {
       return circle;
     });
     const rectSize = 50;
+    const columnsNum = canvas.width / rectSize + 1;
     const rects = Array.from({
-      length: (canvas.width / rectSize) * (canvas.height / rectSize),
+      length: (canvas.width / rectSize + 1) * (canvas.height / rectSize + 1),
     }).map((_, index) => {
       const rect = new Rect();
       rect.width = rect.height = rectSize;
-      const temp = index * rectSize;
-      const x = temp % canvas.width;
-      const y = Math.floor(temp / 500) * rectSize;
+      const x = (index % columnsNum) * rectSize;
+      const y = Math.floor(index / columnsNum) * rectSize;
       rect.x = x;
       rect.y = y;
       return rect;
@@ -55,6 +56,7 @@ export default function HomePage() {
       drawBackground(context);
       rects.forEach((rect) => {
         rect.drawTo(context);
+        rect.getComponent(Metaball)?.coverage(circles);
       });
       circles.forEach((circle) => {
         circle.drawTo(context);

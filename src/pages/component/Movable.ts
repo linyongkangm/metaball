@@ -1,8 +1,9 @@
+import { randomInt } from '../randomPlus';
 import { Component } from './Component';
 
 export class Movable extends Component {
-  public rateX = 1;
-  public rateY = 3;
+  public rateX = randomInt(-3, 3);
+  public rateY = randomInt(-3, 3);
   public onBeforeUpdate(context: CanvasRenderingContext2D): void {
     if (this.entity?.x !== undefined) {
       if (this.entity.x >= context.canvas.width || this.entity.x <= 0) {
