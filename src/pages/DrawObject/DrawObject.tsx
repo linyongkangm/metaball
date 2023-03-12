@@ -3,7 +3,14 @@ import { Component } from '../component/Component';
 export abstract class DrawObject {
   public x: number = 0;
   public y: number = 0;
-  public abstract drawTo(context: CanvasRenderingContext2D): void;
+  public drawTo(context: CanvasRenderingContext2D) {
+    this.getComponents().forEach((component) => {
+      component.onBeforeUpdate?.(context);
+    });
+    this.getComponents().forEach((component) => {
+      component.onUpdate?.(context);
+    });
+  }
   protected components = new Map<typeof Component, Component>();
   public addComponent(Comp: typeof Component) {
     this.removeComponent(Comp);

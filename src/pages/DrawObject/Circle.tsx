@@ -1,9 +1,11 @@
 import { CircleDraw } from '../component/CircleDraw';
+import { Movable } from '../component/Movable';
 import { DrawObject } from './DrawObject';
 
 export class Circle extends DrawObject {
   constructor() {
     super();
+    this.addComponent(Movable);
     this.addComponent(CircleDraw);
   }
   public set radius(r: number) {
@@ -15,10 +17,5 @@ export class Circle extends DrawObject {
   public get radius() {
     const circleDraw = this.getComponent(CircleDraw);
     return circleDraw?.radius || 0;
-  }
-  public drawTo(context: CanvasRenderingContext2D): void {
-    this.getComponents().forEach((component) => {
-      component.onUpdate?.(context);
-    });
   }
 }
