@@ -38,7 +38,7 @@ export default function HomePage() {
       circle.radius = randomInt(minR, maxR);
       return circle;
     });
-    const rectSize = 10;
+    const rectSize = 50;
     const columnsNum = canvas.width / rectSize + 1;
     const rects = Array.from({
       length: (canvas.width / rectSize + 1) * (canvas.height / rectSize + 1),
