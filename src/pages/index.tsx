@@ -1,5 +1,5 @@
 import { useEffect, useRef } from 'react';
-import { Circle } from './DrawObject/Circle';
+import { Circle } from './drawObject/Circle';
 import { randomInt } from './randomPlus';
 
 function drawBackground(context: CanvasRenderingContext2D) {
@@ -14,8 +14,6 @@ function requestAnimationFrameDraw(draw: () => void) {
   };
   render();
 }
-
-function injectMovement() {}
 
 export default function HomePage() {
   const canvasRef = useRef<HTMLCanvasElement>(null);
